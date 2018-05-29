@@ -1,0 +1,15 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "a RESTful blog app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Confidence",
+  "license": "ISC",
+  "dependencies": {
+    "express-sanitizer": "^1.0.4",
+    "method-override": "^2.3.10"
+  }
+}
