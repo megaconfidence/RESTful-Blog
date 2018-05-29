@@ -67,6 +67,20 @@ app.post('/blogs', (req, res) => {
   });
 });
 
+
+app.get('/blogs/:id', (req, res) => {
+  Blog.findById(req.params.id, (err, foundblog) => {
+    if (err) {
+      res.redirect("/blogs");
+      console.log("AN ERROR OCCURED WHILE RENDERING THE MORE BLOGS INFO");
+    }
+    else {
+      console.log('MORE BLOGS INFO WAS SUCESSFULLY RENDERED');
+      res.render('show', { blog: foundblog });
+    }
+  })
+});
+
 app.listen(3000, () => {
   console.log('Blog server is listening on port 3000');
 });
