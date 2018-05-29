@@ -81,6 +81,33 @@ app.get('/blogs/:id', (req, res) => {
   })
 });
 
+app.get('/blogs/:id/edit', (req, res) => {
+  Blog.findById(req.params.id, (err, foundblog) => {
+    if (err) {
+      res.redirect("/blogs");
+      console.log("AN ERROR OCCURED WHILE RENDERING THE EDITED BLOGS INFO");
+    } else {
+      console.log('EDITED BLOGS INFO WAS SUCESSFULLY RENDERED')
+      res.render('edit', {
+        blog: foundblog
+      });
+    }
+  })
+});
+
+app.put('/blogs/:id', (req, res) => {
+  req.body.body = req.sanitize(req.body.body);
+  Blog.findByIdAndUpdate(req.params.id, req.body.blog, (err, editedBlog) => {
+    if (err) {
+      res.redirect("/blogs/:id/edit");
+      console.log("AN ERROR OCCURED WHILE RENDERING THE UPDATED BLOGS INFO");
+    } else {
+      console.log('UPDATED BLOGS INFO WAS SUCESSFULLY RENDERED')
+      res.redirect('/blogs/' + req.params.id);
+    }
+  })
+});
+
 app.listen(3000, () => {
   console.log('Blog server is listening on port 3000');
 });
