@@ -50,7 +50,22 @@ app.get('/blogs', (req, res) => {
   })
 });
 
+app.get('/blogs/new', (req, res) => {
+  res.render('new');
+});
 
+app.post('/blogs', (req, res) => {
+  req.body.body = req.sanitize(req.body.body);
+  Blog.create(req.body.blog, (err, newBlog) => {
+    if (err) {
+      console.log('AN ERROR OCCURED WHILE SAVING BLOG TO DB');
+      res.redirect('/blogs/new');
+    } else {
+      console.log('BLOGS WERE SUCESSFULLY SAVED TO DB')
+      res.redirect('/blogs');
+    }
+  });
+});
 
 app.listen(3000, () => {
   console.log('Blog server is listening on port 3000');
