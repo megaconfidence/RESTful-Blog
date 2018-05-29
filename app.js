@@ -108,6 +108,18 @@ app.put('/blogs/:id', (req, res) => {
   })
 });
 
+app.delete('/blogs/:id', (req, res) => {
+  Blog.findByIdAndRemove(req.params.id, (err, editedBlog) => {
+    if (err) {
+      res.redirect("/blogs/:id");
+      console.log("AN ERROR OCCURED WHILE DELETING THE BLOG");
+    } else {
+      console.log('BLOG WAS SUCESSFULLY DELETING')
+      res.redirect('/blogs');
+    }
+  })
+});
+
 app.listen(3000, () => {
   console.log('Blog server is listening on port 3000');
 });
